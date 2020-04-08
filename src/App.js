@@ -11,7 +11,7 @@ function App() {
         <div className="col-3 bg-light left-panel">
           <FileSearch 
             title="Doc Files"
-            onFileSearch={()=>{}}
+            onFileSearch={(value)=>{console.log(value)}}
           />
         </div>
         <div className="col-9 bg-primary right-panel">
