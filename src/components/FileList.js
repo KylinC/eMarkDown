@@ -3,30 +3,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit,faTrash,faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
+import useKeyPress from '../hooks/useKeyPress'
 
 const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
     const [editStatus,setEditStatus]=useState(false)
     const [value,setValue]=useState('')
-    const closeSearch = (e) => {
-        e.preventDefault()
+    let node = useRef(null)
+    const enterPressed = useKeyPress(13)
+    const escPressed = useKeyPress(27)
+    const closeSearch = (editItem) => {
         setEditStatus(false)
         setValue('')
+        if (editItem.isNew){
+            onFileDelete(editItem.id)
+        }
     }
     useEffect(()=>{
-        const handleInputEvent = (event) => {
-            const {keyCode} = event
-            if (keyCode == 13 && editStatus) {
-                const editItem = files.find(file => file.id==editStatus)
-                onSaveEdit(editItem.id,value)
-                setEditStatus(false)
-                setValue('')
-            } else if(keyCode == 27 && editStatus){
-                closeSearch(event)
-            }
+        const newFile = files.find(file=>file.isNew)
+        if(newFile){
+            setEditStatus(newFile.id)
+            setValue(newFile.title)
         }
-        document.addEventListener('keyup',handleInputEvent)
-        return () => {
-            document.removeEventListener('keyup', handleInputEvent)
+    },[files])
+    useEffect(() => {
+        if (editStatus) {
+          node.current.focus()
+        }
+      }, [editStatus])
+    useEffect(()=>{
+        const editItem = files.find(file => file.id === editStatus)
+        if (enterPressed && editStatus && value.trim() !== '') {
+        onSaveEdit(editItem.id, value, editItem.isNew)
+        setEditStatus(false)
+        setValue('')
+        }
+        if(escPressed && editStatus) {
+        closeSearch(editItem)
         }
     })
     
@@ -36,7 +48,7 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
                 files.map(file => (
                     <li className="row list-group-item bg-light d-flex align-items-center file-item mx-0"
                     key={file.id}>
-                        { (file.id!=editStatus) &&
+                        { ((file.id!=editStatus) && !file.isNew) &&
                         <>
                             <span className="col-2">
                                 <FontAwesomeIcon size="lg" icon={faMarkdown} />
@@ -57,7 +69,7 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
                             </button>
                         </>
                         }
-                        {  (file.id==editStatus) &&
+                        {  ((file.id==editStatus) || file.isNew) &&
                         <>
                             <span className="col-2">
                             <FontAwesomeIcon size="lg" icon={faMarkdown} />
@@ -65,11 +77,13 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
                             <input 
                             className="form-control col-8"
                             value={value}
+                            ref={node}
+                            placeholder="untitled"
                             onChange={(e) => {setValue(e.target.value)}}
                             />
                             <button type="button" 
                             className='icon-button col-2'
-                            onClick={closeSearch}>
+                            onClick={()=>{closeSearch(file)}}>
                                 <FontAwesomeIcon size="lg" title="close" icon={faTimes} />
                             </button>
                         </>

@@ -9,3 +9,22 @@
 .c-input {
   height: 20px;
 }
+.start-page {
+  font-size: 30px;
+  height: 300px;
+  line-height: 300px;
+  color: #ccc;
+  text-align: center;
+}
+.left-panel {
+  min-height: 100vh;
+  position: relative;
+}
+.button-group{
+  position: absolute;
+  width:100%;
+  bottom: 0;
+}
+.no-border{
+  border-radius: 0 !important;
+}
