@@ -6,3 +6,6 @@
 .c-link {
   cursor: pointer;
 }
+.c-input {
+  height: 20px;
+}
