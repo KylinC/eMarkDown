@@ -16,6 +16,13 @@ import TabList from './components/TabList'
 
 const {join} = window.require('path')
 const {remote} = window.require('electron')
+const Store = window.require('electron-store')
+
+const store = new Store()
+store.set('name','viking')
+console.log(store.get('name'))
+store.delete('name')
+console.log(store.get('name'))
 
 function App() {
   const [files,setFiles]=useState(flattenArr(defaultFiles))
