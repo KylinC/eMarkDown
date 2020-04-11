@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { faPlus,faFileImport,faSave } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -14,8 +14,10 @@ import defaultFiles from './utils/defaultFiles'
 import ButtonBtn from './components/BottomBtn'
 import TabList from './components/TabList'
 
+import useIpcRenderer from './hooks/useIpcRenderer'
+
 const {join,basename,extname,dirname} = window.require('path')
-const {remote} = window.require('electron')
+const {remote,ipcRenderer} = window.require('electron')
 const Store = window.require('electron-store')
 
 const fileStore = new Store({'name':'Files Data'})
@@ -179,6 +181,11 @@ function App() {
       console.log(err)
     })
   }
+  useIpcRenderer({
+    'create-new-file': createNewFile,
+    'import-file': importFiles,
+    'save-edit-file': saveCurrentFile
+  })
   return (
     <div className="App container-fluid px-0">
       <div className="row no-gutters">
@@ -236,12 +243,12 @@ function App() {
                 minHeight: '515px'
               }}
             />
-            <ButtonBtn 
+            {/* <ButtonBtn 
               text="Save"
               colorClass="btn-success"
               icon={faSave}
               onBtnClick={saveCurrentFile}
-            />
+            /> */}
           </>
           }
         </div>
