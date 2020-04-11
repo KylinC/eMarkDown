@@ -1,68 +1,61 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-11-logo-1.png" height="120" />
+  <h3 align="center">eMarkDown</h3>
+  <p align="center">MarkDown Editor Desktop App</p>
+  <p align="center">
+    <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg" alt="Platforms">
+  </p>
+  <p align="center">
+    <a href="https://github.com/KylinC/eMarkDown"><img src="https://img.shields.io/badge/release-v1.0.0-blue" alt="GitHub version"></a>
+    <a href="https://github.com/KylinC/eMarkDown"><img src="https://img.shields.io/badge/node-10.5.13-red" alt="GitHub version"></a>
+    <a href="https://github.com/KylinC/eMarkDown"><img src="https://img.shields.io/badge/electron-8.2.1-yellowgreen" alt="GitHub version"></a>
+    <a href="https://github.com/KylinC/eMarkDown"><img src="https://img.shields.io/badge/react-16.13.1-lightgrey" alt="GitHub version"></a>
+  </p>
+</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+- Writable & Readable
+- Support All the Markdown Hotkey
+- Import and Export from Own File System
+- Cloud Sync Service
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
+## Download
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The latest version of eMarkDown for macOS, Linux and Windows is available [here]().
 
-### `yarn build`
+**macOS 10.9+, Windows 7+ & Linux are supported.**
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Screenshots
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<p align="center">
+  <img src="" />
+</p>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Keyboard shortcuts
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Blacken: <kbd>⌘</kbd><kbd>B</kbd> or <kbd>Ctrl</kbd> <kbd>B</kbd>
 
-## Learn More
+- Title: <kbd>#</kbd>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  ( And all the Markdown Hotkey )
+  
+- Save: <kbd>⌘</kbd> <kbd>S</kbd> or <kbd>Ctrl</kbd> <kbd>S</kbd>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Import: <kbd>⌘</kbd> <kbd>O</kbd> or <kbd>Ctrl</kbd> <kbd>O</kbd>
 
-### Code Splitting
+- Redo: <kbd>⌘</kbd> <kbd>Shift</kbd> <kbd>Z</kbd>  or <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>Z</kbd>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- Undo: <kbd>⌘</kbd> <kbd>Z</kbd> or <kbd>Ctrl</kbd> <kbd>Z</kbd>
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+MIT © [Kylin Chen]()
