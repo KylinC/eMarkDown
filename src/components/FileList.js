@@ -5,6 +5,9 @@ import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
 
+const {remote} = window.require('electron')
+const {Menu, MenuItem} = remote
+
 const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
     const [editStatus,setEditStatus]=useState(false)
     const [value,setValue]=useState('')
@@ -18,6 +21,34 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
             onFileDelete(editItem.id)
         }
     }
+    useEffect(()=>{
+        const menu = new Menu()
+        menu.append(new MenuItem({
+            label: 'Open',
+            click: ()=>{
+                console.log('clicking1')
+            }
+        }))
+        menu.append(new MenuItem({
+            label: 'Rename',
+            click: ()=>{
+                console.log('clicking2')
+            }
+        }))
+        menu.append(new MenuItem({
+            label: 'Delete',
+            click: ()=>{
+                console.log('clicking3')
+            }
+        }))
+        const handleContextMenu = (e) => {
+            menu.popup({window: remote.getCurrentWindow()})
+        }
+        window.addEventListener('contextmenu',handleContextMenu)
+        return () =>{
+            window.removeEventListener('contextmenu',handleContextMenu)
+        }
+    })
     useEffect(()=>{
         const newFile = files.find(file=>file.isNew)
         if(newFile){
