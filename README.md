@@ -36,7 +36,7 @@ The latest version of eMarkDown for macOS, Linux and Windows is available [here]
 ## Screenshots
 
 <p align="center">
-  <img src="" />
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-11-dep.jpg" />
 </p>
 
 

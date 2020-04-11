@@ -224,7 +224,11 @@ function App() {
         <div className="col-9 right-panel">
           {!activeFile &&
             <div className="start-page">
-              Create New Markdown
+              <p></p>
+              <p align="center">
+                  <img src={require('./logo.png')} height="120" />
+                  eMarkDown
+              </p>
             </div>
           }
           {activeFile &&
