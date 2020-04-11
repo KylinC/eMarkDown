@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#select-new-location').addEventListener('click', () => {
     remote.dialog.showOpenDialog({
       properties: ['openDirectory'],
-      message: '选择文件的存储路径',
-    }, (path) => {
+      message: 'Select New Store Path',
+    }).then(result=>{
+      const path = result.filePaths
       if (Array.isArray(path)) {
         $('#savedFileLocation').value = path[0]
       }

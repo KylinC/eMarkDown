@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch,faTimes } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
+import useIpcRenderer from '../hooks/useIpcRenderer'
 
 const FileSearch = ({title, onFileSearch}) => {
     const [inputActive, setInputActive] = useState(false)
@@ -10,24 +11,18 @@ const FileSearch = ({title, onFileSearch}) => {
     const enterPressed = useKeyPress(13)
     const escPressed = useKeyPress(27)
     let node = useRef(null)
+    const startSearch = () => {
+        setInputActive(true)
+    }
     const closeSearch = ()=>{
         setInputActive(false)
         setValue('')
         onFileSearch('')
     }
+    useIpcRenderer({
+        'search-file': startSearch
+    })
     useEffect(()=>{
-        // const handleInputEvent = (event) => {
-        //     const {keyCode} = event
-        //     if (keyCode == 13 && inputActive) {
-        //         onFileSearch(value)
-        //     } else if(keyCode == 27 && inputActive){
-        //         closeSearch(event)
-        //     }
-        // }
-        // document.addEventListener('keyup',handleInputEvent)
-        // return () => {
-        //     document.removeEventListener('keyup', handleInputEvent)
-        // }
         if(enterPressed && inputActive){
             onFileSearch(value)
         }
@@ -47,7 +42,7 @@ const FileSearch = ({title, onFileSearch}) => {
                   <span>{title}</span>
                   <button type="button" 
                   className='icon-button'
-                  onClick={()=>{setInputActive(true)}}>
+                  onClick={startSearch}>
                       <FontAwesomeIcon size="lg" title="search" icon={faSearch} />
                   </button>
               </div>
@@ -56,7 +51,7 @@ const FileSearch = ({title, onFileSearch}) => {
                 inputActive &&
                 <div className="d-flex justify-content-between align-items-center mb-0">
                     <input 
-                      className="form-control c-input"
+                      className="form-control"
                       value={value}
                       ref = {node}
                       onChange={(e) => {setValue(e.target.value)}}

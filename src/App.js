@@ -21,6 +21,7 @@ const {remote,ipcRenderer} = window.require('electron')
 const Store = window.require('electron-store')
 
 const fileStore = new Store({'name':'Files Data'})
+const settingsStore = new Store({name: 'Settings'})
 
 const saveFilesToStore = (files) => {
   const fileStoreObj = objToArr(files).reduce((result,file)=>{
@@ -46,7 +47,7 @@ function App() {
     return files[openID]
   })
   const filesArr = objToArr(files)
-  const savedLocation = remote.app.getPath('documents')
+  const savedLocation = settingsStore.get('savedFileLocation') || remote.app.getPath('documents')
   // console.log(filesArr)
   const activeFile = files[activeFileID]
   const fileListArr = (searchedFiles.length>0)?searchedFiles:filesArr
