@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-11-logo-1.png" height="120" />
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-11-logo.jpg" height="120" />
   <h3 align="center">eMarkDown</h3>
   <p align="center">MarkDown Editor Desktop App</p>
   <p align="center">
@@ -12,6 +12,7 @@
     <a href="https://github.com/KylinC/eMarkDown"><img src="https://img.shields.io/badge/react-16.13.1-lightgrey" alt="GitHub version"></a>
   </p>
 </p>
+
 
 
 ## Features
