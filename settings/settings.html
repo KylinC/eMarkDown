@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./settings.css">
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h5>设置</h5>
+      <form id="settings-form">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" data-tab="#config-file-location">文件存储位置</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-tab="#qiniu-sync-params">七牛云同步</a>
+          </li>
+        </ul>
+        <div id="config-file-location" class="config-area mt-4">       
+          <div class="form-group">
+            <label for="exampleInputPassword1">选择文件存储位置</label>
+            <div class="input-group mb-2">
+              <input type="text" id="savedFileLocation" class="form-control" placeholder="当前存储地址" readonly>
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" id="select-new-location">选择新的位置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="qiniu-sync-params" class="config-area mt-4">
+          <div class="form-group row">
+            <label for="accessKey" class="col-3 col-form-label">Access Key</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="accessKey" placeholder="Access Key">
+              <small id="acHelp" class="form-text text-muted">请在七牛云密钥管理下查看</small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="secretKey" class="col-3 col-form-label">Secret Key</label>
+            <div class="col-9">
+              <input type="password" class="form-control" id="secretKey" placeholder="Secret Key">
+              <small id="skHelp" class="form-text text-muted">请在七牛云密钥管理下查看</small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="bucketName" class="col-3 col-form-label">Bucket名称</label>
+            <div class="col-9">
+              <input type="text" class="form-control" id="bucketName" placeholder="请输入 Bucket 名称">
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">保存</button>
+      </form>
+    </div>
+    <script>
+      require('./settings.js')
+    </script>
+  </body>
+</html>
