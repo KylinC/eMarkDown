@@ -4,6 +4,8 @@ import { faEdit,faTrash,faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
 import useKeyPress from '../hooks/useKeyPress'
+import useContextMenu from '../hooks/useContextMenu'
+import {getParentNode} from '../utils/helper.js'
 
 const {remote} = window.require('electron')
 const {Menu, MenuItem} = remote
@@ -21,34 +23,36 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
             onFileDelete(editItem.id)
         }
     }
-    useEffect(()=>{
-        const menu = new Menu()
-        menu.append(new MenuItem({
-            label: 'Open',
-            click: ()=>{
-                console.log('clicking1')
+    const clickedItem = useContextMenu([{
+        label: 'Open',
+        click: ()=>{
+            const parentElement = getParentNode(clickedItem.current,'file-item')
+            if(parentElement){
+                onFileClick(parentElement.dataset.id)
             }
-        }))
-        menu.append(new MenuItem({
-            label: 'Rename',
-            click: ()=>{
-                console.log('clicking2')
-            }
-        }))
-        menu.append(new MenuItem({
-            label: 'Delete',
-            click: ()=>{
-                console.log('clicking3')
-            }
-        }))
-        const handleContextMenu = (e) => {
-            menu.popup({window: remote.getCurrentWindow()})
         }
-        window.addEventListener('contextmenu',handleContextMenu)
-        return () =>{
-            window.removeEventListener('contextmenu',handleContextMenu)
+    },
+    {
+        label: 'Rename',
+        click: ()=>{
+            const parentElement = getParentNode(clickedItem.current, 'file-item')
+            if (parentElement) {
+                const { id, title } = parentElement.dataset
+                setEditStatus(id)
+                setValue(title)
+            }
         }
-    })
+    },
+    {
+        label: 'Delete',
+        click: ()=>{
+            const parentElement = getParentNode(clickedItem.current, 'file-item')
+            if (parentElement) {
+                onFileDelete(parentElement.dataset.id)
+            }
+        }
+    }
+    ],'.file-list',[files])
     useEffect(()=>{
         const newFile = files.find(file=>file.isNew)
         if(newFile){
@@ -78,7 +82,10 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
             {    
                 files.map(file => (
                     <li className="row list-group-item bg-light d-flex align-items-center file-item mx-0"
-                    key={file.id}>
+                        key={file.id}
+                        data-id={file.id}
+                        data-title={file.title}
+                    >
                         { ((file.id!=editStatus) && !file.isNew) &&
                         <>
                             <span className="col-2">
@@ -88,16 +95,16 @@ const FileList = ({files,onFileClick,onSaveEdit,onFileDelete}) => {
                             className="col-6 c-link"
                             onClick={()=>{onFileClick(file.id)}}
                             >{file.title}</span>
-                            <button type="button" 
+                            {/* <button type="button" 
                             className='icon-button col-2'
                             onClick={()=>{setEditStatus(file.id);setValue(file.title);}}>
                                 <FontAwesomeIcon size="lg" title="edit" icon={faEdit} />
-                            </button>
-                            <button type="button" 
+                            </button> */}
+                            {/* <button type="button" 
                             className='icon-button col-2'
                             onClick={()=>{onFileDelete(file.id)}}>
                                 <FontAwesomeIcon size="lg" title="delete" icon={faTrash} />
-                            </button>
+                            </button> */}
                         </>
                         }
                         {  ((file.id==editStatus) || file.isNew) &&
