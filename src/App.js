@@ -18,14 +18,24 @@ const {join} = window.require('path')
 const {remote} = window.require('electron')
 const Store = window.require('electron-store')
 
-const store = new Store()
-store.set('name','viking')
-console.log(store.get('name'))
-store.delete('name')
-console.log(store.get('name'))
+const fileStore = new Store({'name':'Files Data'})
+
+const saveFilesToStore = (files) => {
+  const fileStoreObj = objToArr(files).reduce((result,file)=>{
+    const {id,path,title,createAt} = file
+    result[id] = {
+      id,
+      path,
+      title,
+      createAt,
+    }
+    return result
+  },{})
+  fileStore.set('files',fileStoreObj)
+}
 
 function App() {
-  const [files,setFiles]=useState(flattenArr(defaultFiles))
+  const [files,setFiles]=useState(fileStore.get('files') || {})
   const [activeFileID,setActiveFileID]=useState('')
   const [openedFileIDs,setOpenedFileIDs]=useState([])
   const [unsavedFileIDs,setUnsavedFileIDs]=useState([])
@@ -40,6 +50,13 @@ function App() {
   const fileListArr = (searchedFiles.length>0)?searchedFiles:filesArr
   const fileClick = (fileID) =>{
     setActiveFileID(fileID)
+    const currentFile = files[fileID]
+    if (!currentFile.isLoaded) {
+      fileHelper.readFile(currentFile.path).then(value=>{
+        const newFile = { ...files[fileID],body:value,isLoaded:true}
+        setFiles({ ...files,[fileID]:newFile})
+      })
+    }
     if(!openedFileIDs.includes(fileID)){
       setOpenedFileIDs([ ...openedFileIDs,fileID])
     }
@@ -74,22 +91,27 @@ function App() {
       fileHelper.deleteFile(join(savedLocation, `${files[id].title}.md`)).then(() => {
         const { [id]: value, ...afterDelete } = files
         setFiles(afterDelete)
-        // saveFilesToStore(afterDelete)
+        saveFilesToStore(afterDelete)
         // close the tab if opened
         tabClose(id)
       })
     }
   }
   const updateFileName = (id,title,isNew) => {
-    const modifiedFile = { ...files[id], title, isNew: false }
+    const newPath = join(savedLocation, `${title}.md`)
+    const modifiedFile = { ...files[id], title, isNew: false, path: newPath}
+    const newFiles = { ...files, [id]: modifiedFile }
     if(isNew){
-      fileHelper.writeFile(join(savedLocation, `${title}.md`),files[id].body).then(()=>{
-        setFiles({ ...files, [id]: modifiedFile })
+      fileHelper.writeFile(newPath,files[id].body).then(()=>{
+        setFiles(newFiles)
+        saveFilesToStore(newFiles)
       })
     }else{
-      fileHelper.renameFile(join(savedLocation, `${files[id].title}.md`),
-      join(savedLocation, `${title}.md`)).then(()=>{
-        setFiles({ ...files, [id]: modifiedFile })
+      const oldPath = join(savedLocation, `${files[id].title}.md`)
+
+      fileHelper.renameFile(oldPath,newPath).then(()=>{
+        setFiles(newFiles)
+        saveFilesToStore(newFiles)
       })
     }
   }
