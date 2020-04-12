@@ -26,7 +26,7 @@
 
 ## Download
 
-The latest version of eMarkDown for macOS, Linux and Windows is available [here]().
+The latest version of eMarkDown for macOS, Linux and Windows is available [here](https://github.com/KylinC/eMarkDown/releases).
 
 **macOS 10.9+, Windows 7+ & Linux are supported.**
 
