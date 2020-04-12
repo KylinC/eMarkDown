@@ -67,7 +67,7 @@ let template = [{
 {
   label: 'Sync',
   submenu: [{
-    label: 'Sync Settings',
+    label: 'Settings',
     accelerator: 'CmdOrCtrl+,',
     click: () => {
       ipcMain.emit('open-settings-window')
