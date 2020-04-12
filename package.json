@@ -1,0 +1,130 @@
+{
+  "name": "mark-doc",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "Markdown Desktop App with Cloud Sync",
+  "author": {
+    "name": "Kylin Chen",
+    "email": "qilinc@acm.org"
+  },
+  "repository": "hhttps://github.com/KylinC/eMarkDown",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "electron-is-dev": "^1.2.0",
+    "electron-store": "^5.1.1",
+    "axios": "^0.19.2",
+    "node-sass": "^4.13.1",
+    "qiniu": "^7.3.0",
+    "react-dom": "^16.13.1",
+    "react": "^16.13.1",
+    "react-simplemde-editor": "^4.1.0",
+    "uuid": "^7.0.3",
+    "classnames": "^2.2.6",
+    "react-scripts": "^3.4.1",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.28"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "buildMain": "webpack",
+    "dev": "concurrently \"wait-on http://localhost:3000 && electron .\" \"cross-env BROWSER=none npm start\"",
+    "onlyEle": "nodemon --watch main.js --watch src/menuTemplate.js --exec \"electron .\"",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "release": "electron-builder",
+    "prerelease": "npm run build && npm run buildMain",
+    "prepack": "npm run build",
+    "predist": "npm run build"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "eMarkDown",
+    "productName": "eMarkDown",
+    "copyright": "Copyright © 2020 ${author}",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "settings/**/*",
+      "package.json",
+      "main.js",
+      "./src/menuTemplate.js",
+      "./src/AppWindow.js",
+      "./src/utils/QiniuManager.js"
+    ],
+    "extends": null,
+    "directories": {
+      "buildResources": "assets"
+    },
+    "publish": [
+      "github"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "background": "assets/appdmg.png",
+      "icon": "assets/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        "msi",
+        "nsis"
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "${productName}-Web-Setup-${version}.${ext}",
+      "publisherName": "Kylin Chen"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
+    "electron": "^8.2.1",
+    "electron-builder": "^21.2.0",
+    "wait-on": "^4.0.2"
+  }
+}
