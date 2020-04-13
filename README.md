@@ -32,12 +32,32 @@ The latest version of eMarkDown for macOS, Linux and Windows is available [here]
 
 
 
-
 ## Screenshots
 
+- Default page
+
 <p align="center">
-  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-12-aaa.jpg" />
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-13-aaa.jpg" />
 </p>
+
+- Readable & Writable
+
+<p align="center">
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-13-%E6%88%AA%E5%B1%8F2020-04-13%20%E4%B8%8B%E5%8D%8812.04.40.png" />
+</p>
+
+- Cloud Sync
+
+<p align="center">
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-13-%E6%88%AA%E5%B1%8F2020-04-13%20%E4%B8%8B%E5%8D%8812.06.12.png" />
+</p>
+
+- Full Screen
+
+<p align="center">
+  <img src="http://kylinhub.oss-cn-shanghai.aliyuncs.com/2020-04-13-%E6%88%AA%E5%B1%8F2020-04-13%20%E4%B8%8B%E5%8D%8812.00.58.png" />
+</p>
+
 
 
 
