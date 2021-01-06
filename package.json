@@ -13,7 +13,7 @@
     "bootstrap": "^4.4.1",
     "electron-is-dev": "^1.2.0",
     "electron-store": "^5.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "node-sass": "^4.13.1",
     "qiniu": "^7.3.0",
     "react-dom": "^16.13.1",
